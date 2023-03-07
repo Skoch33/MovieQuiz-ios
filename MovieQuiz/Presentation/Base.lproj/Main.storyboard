@@ -61,7 +61,7 @@
                                         <rect key="frame" x="0.0" y="624.5" width="374" height="99.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Рейтинг этого фильма меньше, чем 5?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dsx-Sz-4zW" userLabel="Question Label">
-                                                <rect key="frame" x="42" y="13" width="290" height="73.5"/>
+                                                <rect key="frame" x="42" y="13" width="290" height="54"/>
                                                 <fontDescription key="fontDescription" name="YSDisplay-Bold" family="YS Display" pointSize="23"/>
                                                 <color key="textColor" name="ypWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -70,8 +70,7 @@
                                         <constraints>
                                             <constraint firstItem="Dsx-Sz-4zW" firstAttribute="top" secondItem="gMn-kC-Xjg" secondAttribute="top" constant="13" id="BUc-7Q-ZY1"/>
                                             <constraint firstItem="Dsx-Sz-4zW" firstAttribute="left" secondItem="gMn-kC-Xjg" secondAttribute="left" constant="42" id="lYC-vH-iSc"/>
-                                            <constraint firstAttribute="bottom" secondItem="Dsx-Sz-4zW" secondAttribute="bottom" constant="13" id="phX-6T-C9C"/>
-                                            <constraint firstAttribute="right" secondItem="Dsx-Sz-4zW" secondAttribute="right" constant="42" id="x5h-5y-KIe"/>
+                                            <constraint firstAttribute="right" secondItem="Dsx-Sz-4zW" secondAttribute="right" priority="999" constant="42" id="x5h-5y-KIe"/>
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="hlF-9d-J6C" userLabel="Button Stack View">
@@ -128,7 +127,7 @@
                         <color key="backgroundColor" name="ypDarkGray"/>
                         <constraints>
                             <constraint firstItem="5Dg-TG-HWA" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Lgg-50-Jam"/>
-                            <constraint firstAttribute="bottom" secondItem="5Dg-TG-HWA" secondAttribute="bottom" constant="34" id="Vih-mq-s87"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="5Dg-TG-HWA" secondAttribute="bottom" id="Vih-mq-s87"/>
                             <constraint firstItem="5Dg-TG-HWA" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="e7W-5Y-65j"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="5Dg-TG-HWA" secondAttribute="trailing" constant="20" id="m4k-4q-fdp"/>
                         </constraints>
