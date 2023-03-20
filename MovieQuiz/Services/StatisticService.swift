@@ -58,13 +58,16 @@ final class StatisticServiceImplementation: StatisticService {
     
     var bestGame: GameRecord {
         get {
-            guard let data = userDefaults.data(forKey: Keys.bestGame.rawValue), let record = try? JSONDecoder().decode(GameRecord.self, from: data) else {
+            guard let data = userDefaults.data(forKey: Keys.bestGame.rawValue),
+                  let record = try? JSONDecoder().decode(GameRecord.self, from: data)
+            else {
                 return .init(correct: 0, total: 0, date: Date())
             }
             return record
         }
         set {
-            guard let data = try? JSONEncoder().encode(newValue) else {
+            guard let data = try? JSONEncoder().encode(newValue)
+            else {
                 print("Невозможно сохранить результат")
                 return
             }
@@ -78,20 +81,20 @@ final class StatisticServiceImplementation: StatisticService {
             let amountOfQuestions = (userDefaults.value(forKey: Keys.total.rawValue) as? Double) ?? 0
             return amountOfCorrect / amountOfQuestions * 100
         }
-        set {
-            
-        }
     }
     
     var gamesCount: Int {
         get {
-            guard let data = userDefaults.data(forKey: Keys.gamesCount.rawValue), let gamesCount = try? JSONDecoder().decode(Int.self, from: data) else {
+            guard let data = userDefaults.data(forKey: Keys.gamesCount.rawValue),
+                  let gamesCount = try? JSONDecoder().decode(Int.self, from: data)
+            else {
                 return .zero
             }
             return gamesCount
         }
         set {
-            guard let data = try? JSONEncoder().encode(newValue) else {
+            guard let data = try? JSONEncoder().encode(newValue)
+            else {
                 print("Невозможно сосчитать кол-во игр")
                 return
             }

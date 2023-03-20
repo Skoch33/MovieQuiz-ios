@@ -17,10 +17,4 @@ final class AlertPresenter {
         alert.addAction(action)
         controller.present(alert, animated: true, completion: nil)
     }
-    /*weak var delegate: MovieQuizViewController?
-    
-    init(delegate: MovieQuizViewController?) {
-        self.delegate = delegate
-    }
-     */
 }
