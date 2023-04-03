@@ -14,4 +14,5 @@ protocol QuestionFactoryDelegate {
     func showLoadingIndicator()
     func hideLoadingIndicator()
     func changeButtonsStatus()
+    func didFailToLoadImage()
 }
