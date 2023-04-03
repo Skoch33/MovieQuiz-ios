@@ -169,9 +169,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
                                buttonText: "Попробовать еще раз") { [weak self] _ in
             guard let self = self else { return }
             
-            self.currentQuestionIndex = 0
-            self.correctAnswers = 0
-            
             self.questionFactory?.loadData()
         }
         
@@ -186,5 +183,15 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     func didFailToLoadData(with error: Error) {
         showNetworkError(message: error.localizedDescription)
+    }
+    
+    func didFailToLoadImage() {
+        let model = AlertModel(title: "Ошибка",
+                               message: "Картинка не загружена",
+                               buttonText: "Попробовать еще раз") { [weak self] _ in
+            self?.questionFactory?.loadData()
+        }
+        let alert = AlertPresenter()
+        alert.present(view: self, alert: model)
     }
 }
