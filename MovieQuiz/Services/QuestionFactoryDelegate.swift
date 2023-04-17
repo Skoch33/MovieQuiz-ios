@@ -12,7 +12,4 @@ protocol QuestionFactoryDelegate {
     func didLoadDataFromServer() // сообщение об успешной загрузке
     func didFailToLoadData(with error: Error) // сообщение об ошибке загрузки
     func showLoadingIndicator()
-    func hideLoadingIndicator()
-    func changeButtonsStatus()
-    func didFailToLoadImage()
 }
