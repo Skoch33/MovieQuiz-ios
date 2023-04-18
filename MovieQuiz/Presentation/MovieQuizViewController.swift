@@ -2,6 +2,7 @@ import UIKit
 
 final class MovieQuizViewController: UIViewController, MovieQuizViewControllerProtocol  {
     
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -20,7 +21,6 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        showLoadingIndicator()
         presenter = MovieQuizPresenter(viewController: self)
     }
     
@@ -59,6 +59,20 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 8
         imageView.layer.borderColor = isCorrectAnswer ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor
+    }
+    
+    func resetImageBorder() {
+        imageView.layer.borderColor = UIColor.clear.cgColor
+    }
+    
+    func changeButtonsStatus() {
+        if yesButton.isEnabled == true && noButton.isEnabled == true {
+            yesButton.isEnabled = false
+            noButton.isEnabled = false
+        } else if yesButton.isEnabled == false && noButton.isEnabled == false {
+            yesButton.isEnabled = true
+            noButton.isEnabled = true
+        }
     }
     
     // MARK: - Network fucntions

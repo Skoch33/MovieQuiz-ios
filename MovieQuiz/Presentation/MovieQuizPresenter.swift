@@ -8,11 +8,6 @@
 import UIKit
 
 protocol MovieQuizViewControllerProtocol: AnyObject {
-    var noButton: UIButton! { get }
-    var yesButton: UIButton! { get }
-    var imageView: UIImageView! { get }
-    var activityIndicator: UIActivityIndicatorView! { get }
-    
     
     func show(quiz step: QuizStepViewModel)
     func show(quiz result: QuizResultsViewModel)
@@ -21,13 +16,15 @@ protocol MovieQuizViewControllerProtocol: AnyObject {
     
     func showLoadingIndicator()
     func hideLoadingIndicator()
+    func resetImageBorder()
+    func changeButtonsStatus()
     
     func showNetworkError(message: String)
     
 }
 
 final class MovieQuizPresenter: QuestionFactoryDelegate {
-
+    
     private let questionsAmount: Int = 10
     private var currentQuestionIndex: Int = 0
     private let statisticService = StatisticServiceImplementation()
@@ -35,7 +32,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     private var correctAnswers: Int = 0
     private var questionFactory: QuestionFactoryProtocol?
     private weak var viewController: MovieQuizViewControllerProtocol?
-
+    
     
     init(viewController: MovieQuizViewControllerProtocol) {
         self.viewController = viewController
@@ -53,15 +50,15 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     }
     
     func isLastQuestion() -> Bool {
-            currentQuestionIndex == questionsAmount - 1
+        currentQuestionIndex == questionsAmount - 1
     }
-        
+    
     func resetQuestionIndex() {
-            currentQuestionIndex = 0
+        currentQuestionIndex = 0
     }
-        
+    
     func switchToNextQuestion() {
-            currentQuestionIndex += 1
+        currentQuestionIndex += 1
     }
     
     func noButtonClicked() {
@@ -77,7 +74,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
             return
         }
         let givenAnswer = true
-        self.proceedWithAnswer(isCorrect: givenAnswer == currentQuestion.correctAnswer)
+        proceedWithAnswer(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
     
     func didReceiveNextQuestion(question: QuizQuestion?) {
@@ -95,7 +92,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     
     private func proceedToNextQuestionOrResults() {
         if isLastQuestion() {
-            viewController?.imageView.layer.borderColor = UIColor.clear.cgColor
+            viewController?.resetImageBorder()
             statisticService.store(correct: correctAnswers, total: self.questionsAmount)
             statisticService.gamesCount += 1
             let text = correctAnswers == self.questionsAmount ?
@@ -111,15 +108,11 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
                 buttonText: "Cыграть ещё раз")
             viewController?.show(quiz: viewModel)
         } else {
-            viewController?.imageView.layer.borderColor = UIColor.clear.cgColor
-            self.switchToNextQuestion() // увеличиваем индекс текущего вопроса на 1; таким образом мы сможем получить следующий вопрос
+            viewController?.resetImageBorder()
+            switchToNextQuestion() // увеличиваем индекс текущего вопроса на 1; таким образом мы сможем получить следующий вопрос
+            viewController?.showLoadingIndicator()
             questionFactory?.requestNextQuestion() // показать следующий вопрос
         }
-    }
-    
-    func showLoadingIndicator() {
-        viewController?.activityIndicator.isHidden = false // говорим, что индикатор загрузки не скрыт
-        viewController?.activityIndicator.startAnimating() // включаем анимацию
     }
     
     func didLoadDataFromServer() {
@@ -143,16 +136,13 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
             correctAnswers += 1
         }
         viewController?.highlightImageBorder(isCorrectAnswer: isCorrect)
-        viewController?.noButton.isEnabled = false
-        viewController?.yesButton.isEnabled = false
+        viewController?.changeButtonsStatus()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in  // запускаем задачу через 1 секунду
             guard let self = self else { return }
             // код, который вы хотите вызвать через 1 секунду,
             self.proceedToNextQuestionOrResults()
-            self.viewController?.noButton.isEnabled = true
-            self.viewController?.yesButton.isEnabled = true
-            
+            self.viewController?.changeButtonsStatus()
         }
     }
 }

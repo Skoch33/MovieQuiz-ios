@@ -10,16 +10,16 @@ import XCTest
 final class MovieQuizUITests: XCTestCase {
     // swiftlint:disable:next implicitly_unwrapped_optional
     var app: XCUIApplication!
-
+    
     override func setUpWithError() throws {
         try super.setUpWithError()
         
         app = XCUIApplication()
         app.launch()
-       
+        
         continueAfterFailure = false
     }
-
+    
     override func tearDownWithError() throws {
         try super.tearDownWithError()
         
@@ -70,14 +70,14 @@ final class MovieQuizUITests: XCTestCase {
             app.buttons["Yes"].tap()
             sleep(2)
         }
-    
+        
         let alert = app.alerts["Game results"]
-    
+        
         XCTAssertTrue(alert.exists)
         XCTAssertTrue(alert.label == "Этот раунд окончен!")
         XCTAssertTrue(alert.buttons.firstMatch.label == "Cыграть ещё раз")
     }
-
+    
     func testAlertDismiss() {
         sleep(2)
         for _ in 1...10 {

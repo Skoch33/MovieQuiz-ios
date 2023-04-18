@@ -11,7 +11,7 @@ import XCTest
 struct StubNetworkClient: NetworkRouting {
     
     enum TestError: Error {
-    case test
+        case test
     }
     
     let emulateError: Bool
