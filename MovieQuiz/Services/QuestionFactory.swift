@@ -34,10 +34,8 @@ final class QuestionFactory: QuestionFactoryProtocol{
             }
         }
     }
- 
+    
     func requestNextQuestion() {
-        self.delegate?.changeButtonsStatus()
-        self.delegate?.showLoadingIndicator()
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
             let index = (0..<self.movies.count).randomElement() ?? 0
@@ -49,9 +47,7 @@ final class QuestionFactory: QuestionFactoryProtocol{
             do {
                 imageData = try Data(contentsOf: movie.resizedImageURL)
             } catch {
-                DispatchQueue.main.async { [weak self] in
-                    self?.delegate?.didFailToLoadImage()
-                }
+                print("Failed to load image")
             }
             
             let rating = Float(movie.rating) ?? 0
